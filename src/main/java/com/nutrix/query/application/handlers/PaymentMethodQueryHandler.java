@@ -1,7 +1,6 @@
 package com.nutrix.query.application.handlers;
 import com.nutrix.command.infra.IPaymentMethodRepository;
 import com.nutrix.command.infra.PaymentMethod;
-import com.nutrix.query.models.CreatePaymentMethodModel;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

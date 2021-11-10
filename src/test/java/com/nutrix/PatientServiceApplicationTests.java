@@ -4,10 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PatientServiceApplicationTests {
-
+public class PatientServiceApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

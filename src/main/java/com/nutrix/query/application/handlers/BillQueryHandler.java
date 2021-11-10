@@ -1,7 +1,6 @@
 package com.nutrix.query.application.handlers;
 import com.nutrix.command.infra.Bill;
 import com.nutrix.command.infra.IBillRepository;
-import com.nutrix.query.models.CreateBillModel;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

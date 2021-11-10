@@ -1,10 +1,7 @@
 package com.nutrix.command.application.handlers;
 
-import com.nutrix.command.infra.IPatientRepository;
 import com.nutrix.command.infra.IPaymentMethodRepository;
-import com.nutrix.command.infra.Patient;
 import com.nutrix.command.infra.PaymentMethod;
-import events.PatientCreatedEvent;
 import events.PaymentMethodCreatedEvent;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
