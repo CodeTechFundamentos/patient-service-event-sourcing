@@ -1,12 +1,10 @@
 package com.nutrix.command.api;
 
 import com.nutrix.command.application.dto.ErrorResponseDto;
+import com.nutrix.command.infra.Bill;
 import com.nutrix.query.models.CreateBillModel;
 import command.CreateBillC;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,8 +33,11 @@ public class BillCommandController {
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Registro de un Bill", notes ="Método que registra un Bill" )
     @ApiResponses({
-            @ApiResponse(code=201, message = "Bill creado"),
-            @ApiResponse(code=404, message = "Bill no creado")
+            @ApiResponse(code=200, message = "La operación fue exitosa", response = Bill.class),
+            @ApiResponse(code=201, message = "Bill creado", response = Bill.class),
+            @ApiResponse(code=401, message = "Es necesario autenticar para ejecutar la solicitud"),
+            @ApiResponse(code=403, message = "El cliente no posee los permisos necesarios"),
+            @ApiResponse(code=404, message = "Bill no fue creado")
     })
     public ResponseEntity<Object> insertBill(@Validated @RequestBody CreateBillModel bill){
         String id = UUID.randomUUID().toString();

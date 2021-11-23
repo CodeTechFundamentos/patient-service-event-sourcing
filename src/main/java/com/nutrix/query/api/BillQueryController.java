@@ -1,4 +1,5 @@
 package com.nutrix.query.api;
+import com.nutrix.command.infra.Bill;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,8 +32,11 @@ public class BillQueryController {
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Búsqueda de todos los Bill", notes ="Método que busca todos los Bills" )
     @ApiResponses({
-            @ApiResponse(code=201, message = "Bill encontrados"),
-            @ApiResponse(code=404, message = "Bill no encontrados")
+            @ApiResponse(code=200, message = "La operación fue exitosa", response = Bill.class),
+            @ApiResponse(code=201, message = "Bills encontrados", response = Bill.class),
+            @ApiResponse(code=401, message = "Es necesario autenticar para obtener la respuesta solicitada"),
+            @ApiResponse(code=403, message = "El cliente no posee los permisos necesarios"),
+            @ApiResponse(code=404, message = "Bills no encontrados")
     })
     public ResponseEntity<List<BillResult>> getAll(){
         try{

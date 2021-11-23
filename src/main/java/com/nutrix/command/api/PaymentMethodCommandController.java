@@ -1,6 +1,7 @@
 package com.nutrix.command.api;
 
 import com.nutrix.command.application.dto.ErrorResponseDto;
+import com.nutrix.command.infra.PaymentMethod;
 import com.nutrix.query.models.CreatePaymentMethodModel;
 import command.CreatePaymentMethodC;
 import io.swagger.annotations.Api;
@@ -35,8 +36,11 @@ public class PaymentMethodCommandController {
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Registro de un PaymentMethod", notes ="Método que registra un PaymentMethod" )
     @ApiResponses({
-            @ApiResponse(code=201, message = "PaymentMethod creado"),
-            @ApiResponse(code=404, message = "PaymentMethod no creado")
+            @ApiResponse(code=200, message = "La operación fue exitosa", response = PaymentMethod.class),
+            @ApiResponse(code=201, message = "Payment method creado", response = PaymentMethod.class),
+            @ApiResponse(code=401, message = "Es necesario autenticar para obtener la respuesta solicitada"),
+            @ApiResponse(code=403, message = "El cliente no posee los permisos necesarios"),
+            @ApiResponse(code=404, message = "Payment method no fue creado")
     })
     public ResponseEntity<Object> insertPaymentMethod(@Validated @RequestBody CreatePaymentMethodModel paymentMethod){
         String id = UUID.randomUUID().toString();

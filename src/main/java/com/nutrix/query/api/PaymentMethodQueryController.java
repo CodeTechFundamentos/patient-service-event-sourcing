@@ -1,4 +1,6 @@
 package com.nutrix.query.api;
+import com.nutrix.command.infra.Patient;
+import com.nutrix.command.infra.PaymentMethod;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -31,7 +33,10 @@ public class PaymentMethodQueryController {
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Búsqueda de todos los Payment methods", notes ="Método que busca todos los Payment methods" )
     @ApiResponses({
-            @ApiResponse(code=201, message = "Payment methods encontrados"),
+            @ApiResponse(code=200, message = "La operación fue exitosa", response = PaymentMethod.class),
+            @ApiResponse(code=201, message = "Payment methods encontrados", response = PaymentMethod.class),
+            @ApiResponse(code=401, message = "Es necesario autenticar para obtener la respuesta solicitada"),
+            @ApiResponse(code=403, message = "El cliente no posee los permisos necesarios"),
             @ApiResponse(code=404, message = "Payment methods no encontrados")
     })
     public ResponseEntity<List<PaymentMethodResult>> getAll(){

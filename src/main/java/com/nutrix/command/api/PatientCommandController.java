@@ -1,6 +1,8 @@
 package com.nutrix.command.api;
 
 import com.nutrix.command.application.dto.ErrorResponseDto;
+import com.nutrix.command.infra.Bill;
+import com.nutrix.command.infra.Patient;
 import com.nutrix.query.models.CreatePatientModel;
 import command.CreatePatientC;
 import io.swagger.annotations.Api;
@@ -35,8 +37,11 @@ public class PatientCommandController {
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Registro de un Patient", notes ="Método que registra un Patient" )
     @ApiResponses({
-            @ApiResponse(code=201, message = "Patient creado"),
-            @ApiResponse(code=404, message = "Patient no creado")
+            @ApiResponse(code=200, message = "La operación fue exitosa", response = Patient.class),
+            @ApiResponse(code=201, message = "Patient creado", response = Patient.class),
+            @ApiResponse(code=401, message = "Es necesario autenticar para ejecutar la solicitud"),
+            @ApiResponse(code=403, message = "El cliente no posee los permisos necesarios"),
+            @ApiResponse(code=404, message = "Patient no fue creado")
     })
     public ResponseEntity<Object> insertPatient(@Validated @RequestBody CreatePatientModel patient){
         String id = UUID.randomUUID().toString();
