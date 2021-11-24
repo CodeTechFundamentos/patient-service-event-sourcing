@@ -24,8 +24,8 @@ public class PatientSteps {
     private int port;
     private String uid;
     private RestTemplate restTemplate = new RestTemplate();
-    private String postUrl="http://localhost:8082/";
-    //private String postUrl="https://nutrix-patient-service.mybluemix.net/";
+    //private String postUrl="http://localhost:8082/";
+    private String postUrl="https://nutrix-patient-service.mybluemix.net/";
     private String error= "Email ya en uso";
 
     @Given("I can sign up as a patient")
