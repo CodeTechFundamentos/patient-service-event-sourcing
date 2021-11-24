@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import queries.GetPatientsQuery;
@@ -51,5 +52,32 @@ public class PatientQueryController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    //get patient by id
+    @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Búsqueda de un Patient", notes ="Método que busca un Patient por su id" )
+    @ApiResponses({
+            @ApiResponse(code=200, message = "La operación fue exitosa", response = Patient.class),
+            @ApiResponse(code=201, message = "Patient encontrado", response = Patient.class),
+            @ApiResponse(code=401, message = "Es necesario autenticar para obtener la respuesta solicitada"),
+            @ApiResponse(code=403, message = "El cliente no posee los permisos necesarios"),
+            @ApiResponse(code=404, message = "Patient no encontrado")
+    })
+    public ResponseEntity<PatientResult> getPatient(@PathVariable  String id){
+        try {
+            GetPatientsQuery getPatientsQuery = new GetPatientsQuery();
+            List<PatientResult> patients = queryGateway.query(getPatientsQuery,
+                            ResponseTypes.multipleInstancesOf(PatientResult.class))
+                    .join();
+            for (PatientResult patient : patients) {
+                if (patient.getId().equals(id)) {
+                    return new ResponseEntity<>(patient, HttpStatus.CREATED);
+                }
+            }
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
